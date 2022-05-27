@@ -1,0 +1,67 @@
+#movies-body {
+    background: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  #movies-body {
+    background: #000;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  #movies-body {
+    background: #fff;
+  }
+}
+
+.loader-path {
+  stroke-width: 4;
+  stroke-dasharray: 10, 10;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.circular-loader {
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes animate-stroke {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+    stroke: #FF0A6C;
+  }
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35;
+    stroke: #FF0A6C;
+  }
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124;
+    stroke: #FF0A6C;
+  }
+}
+
+.loader-path {
+  animation: animate-stroke 1.5s ease-in-out infinite;
+}
+
+.loader {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 60px;
+  height: 60px;
+  position: absolute;
+}
+
+.flutter-loader {
+   display: none;
+}

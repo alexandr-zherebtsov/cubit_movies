@@ -1,0 +1,73 @@
+name: cubit_movies
+description: Movies application
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.16.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # state manager
+  flutter_bloc: ^8.0.1
+
+  # di
+  get_it: ^7.2.0
+
+  # router
+  go_router: ^3.0.5
+
+  # local storage
+  hive: ^2.1.0
+  hive_flutter: ^1.1.0
+
+  # localization
+  easy_localization: ^3.0.0
+
+  # network
+  dio: ^4.0.4
+  pretty_dio_logger: ^1.1.1
+
+  # location
+  geocoding: ^2.0.4
+  geolocator: ^8.2.0
+
+  # ui
+  fluttertoast: ^8.0.9
+  decorated_icon: ^1.2.1
+  cupertino_icons: ^1.0.4
+  flutter_rating_bar: ^4.0.0
+
+  # utils
+  url_strategy: ^0.2.0
+  connectivity_plus: ^2.1.0
+  permission_handler: ^8.3.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^1.0.4
+  flutter_launcher_icons_maker: ^0.10.2
+
+flutter_icons:
+  web: true
+  ios: true
+  macos: true
+  linux: true
+  windows: true
+  android: true
+  remove_alpha_ios: true
+  adaptive_icon_background: '#FFFFFF'
+  image_path: 'assets/images/app_icon.png'
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
+    - assets/images/
+    - assets/images/2.0x/
+    - assets/images/3.0x/
+    - assets/translations/
