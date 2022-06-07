@@ -181,6 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       child: RefreshIndicator(
+                        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                         onRefresh: () async {
                           _searchTC.clear();
                           _homeCubit.resetSearchFilter();

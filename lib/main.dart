@@ -5,6 +5,7 @@ import 'package:cubit_movies/presentation/router/routes.dart';
 import 'package:cubit_movies/shared/constants/app_values.dart';
 import 'package:cubit_movies/shared/styles/themes.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -38,15 +39,17 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      title: AppValues.appName,
-      theme: AppThemes.getTheme(),
-      locale: context.locale,
-      supportedLocales: context.supportedLocales,
-      localizationsDelegates: context.localizationDelegates,
-      routerDelegate: AppRouter.router.routerDelegate,
-      routeInformationParser: AppRouter.router.routeInformationParser,
+    return OverlaySupport.global(
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        title: AppValues.appName,
+        theme: AppThemes.getTheme(),
+        locale: context.locale,
+        supportedLocales: context.supportedLocales,
+        localizationsDelegates: context.localizationDelegates,
+        routerDelegate: AppRouter.router.routerDelegate,
+        routeInformationParser: AppRouter.router.routeInformationParser,
+      ),
     );
   }
 }

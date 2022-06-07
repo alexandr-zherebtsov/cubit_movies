@@ -1,30 +1,19 @@
-import 'dart:developer';
 import 'dart:io';
 import 'dart:ui';
 
 import 'package:cubit_movies/shared/constants/app_values.dart';
-import 'package:cubit_movies/shared/styles/colors.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:overlay_support/overlay_support.dart';
 
 void errorToast({
   required String? code,
   required String? message,
 }) {
-  try {
-    Fluttertoast.showToast(
-      msg: 'Error Code: $code\nError Message: $message',
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 2,
-      backgroundColor: AppColors.red.withOpacity(0.8),
-      textColor: AppColors.white,
-      fontSize: 16.0,
-    );
-  } catch (e) {
-    log(e.toString());
-  }
+  toast(
+    getClearName(code, message, comma: true),
+    duration: const Duration(milliseconds: 1400),
+  );
 }
 
 bool isMobile() {

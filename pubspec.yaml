@@ -4,7 +4,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.16.2 <3.0.0"
+  sdk: ">=2.17.1 <3.0.0"
 
 dependencies:
   flutter:
@@ -17,14 +17,14 @@ dependencies:
   get_it: ^7.2.0
 
   # router
-  go_router: ^3.0.5
+  go_router: ^3.1.1
 
   # local storage
-  hive: ^2.1.0
+  hive: ^2.2.1
   hive_flutter: ^1.1.0
 
   # localization
-  easy_localization: ^3.0.0
+  easy_localization: ^3.0.1
 
   # network
   dio: ^4.0.4
@@ -32,24 +32,24 @@ dependencies:
 
   # location
   geocoding: ^2.0.4
-  geolocator: ^8.2.0
+  geolocator: ^8.2.1
 
   # ui
-  fluttertoast: ^8.0.9
   decorated_icon: ^1.2.1
+  overlay_support: ^2.0.1
   cupertino_icons: ^1.0.4
   flutter_rating_bar: ^4.0.0
 
   # utils
   url_strategy: ^0.2.0
-  connectivity_plus: ^2.1.0
-  permission_handler: ^8.3.0
+  connectivity_plus: ^2.3.2
+  permission_handler: ^9.2.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^1.0.4
+  flutter_lints: ^2.0.1
   flutter_launcher_icons_maker: ^0.10.2
 
 flutter_icons:

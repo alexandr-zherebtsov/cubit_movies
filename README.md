@@ -6,13 +6,16 @@ Movies Application
 ```
 1 - Android
 2 - iOS
-3 - Web
-4 - Windows
+3 - macOS
+4 - Web
+5 - Windows
 ```
 
 ### Libraries & Tools
 
-- [Flutter Channel stable, 2.10.5](https://flutter.dev)
+- [Flutter 3.0.1 • channel stable](https://flutter.dev)
+- [Dart 2.17.1](https://dart.dev)
+- [DevTools 2.12.2](https://docs.flutter.dev/development/tools/devtools/overview)
 
 State Manager
 - [flutter_bloc](https://github.com/felangel/bloc/tree/master/packages/flutter_bloc)
@@ -62,6 +65,7 @@ flutter-app/
 |- build
 |- ios
 |- lib
+|- macos
 |- test
 |- web
 |- windows
@@ -81,9 +85,9 @@ lib/
 Now, lets dive into the lib folder which has the main code for the application.
 
 ```
-1- data - Contains the data layer of project, includes directories for local, network and shared pref/cache.
-2- domain - Contains abstraction and business logic of project, includes models, responses, request, etc.
-3- presentation - Contains all the ui of project, contains sub directory for each screen.
-4- shared - Contains the utilities/common functions, styles of application.
-5- main.dart - This is the starting point of the application. All the application level configurations are defined in this file i.e, theme, routes, title, orientation etc.
+1 - data - Contains the data layer of project, includes directories for local, network and shared pref/cache.
+2 - domain - Contains abstraction and business logic of project, includes models, responses, request, etc.
+3 - presentation - Contains all the ui of project, contains sub directory for each screen.
+4 - shared - Contains the utilities/common functions, styles of application.
+5 - main.dart - This is the starting point of the application. All the application level configurations are defined in this file i.e, theme, routes, title, orientation etc.
 ```

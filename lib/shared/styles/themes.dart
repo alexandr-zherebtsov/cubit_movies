@@ -5,20 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class AppThemes {
-  static ThemeData getTheme() {
-    switch (window.platformBrightness) {
-      case Brightness.dark:
-        return dark;
-      default:
-        return light;
-    }
-  }
+  static ThemeData getTheme() => window.platformBrightness == Brightness.dark ? AppThemes.dark : AppThemes.light;
 
   static final ThemeData light = ThemeData(
     useMaterial3: true,
     primaryColor: AppColors.pinkAccent,
     primarySwatch: AppColors.pinkAccent,
-    androidOverscrollIndicator: AndroidOverscrollIndicator.stretch,
     brightness: AppColors.brightnessLight,
     dividerColor: AppColors.lightGray,
     backgroundColor: AppColors.lightGray,
@@ -32,9 +24,13 @@ class AppThemes {
     ),
     appBarTheme: const AppBarTheme(
       elevation: 0.0,
+      scrolledUnderElevation: 0.0,
       centerTitle: true,
       color: AppColors.white,
-      systemOverlayStyle: SystemUiOverlayStyle.light,
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.light,
+      ),
       iconTheme: IconThemeData(
         color: AppColors.black,
       ),
@@ -75,7 +71,6 @@ class AppThemes {
     useMaterial3: true,
     primaryColor: AppColors.pinkAccent,
     primarySwatch: AppColors.pinkAccent,
-    androidOverscrollIndicator: AndroidOverscrollIndicator.stretch,
     brightness: AppColors.brightnessDark,
     dividerColor: AppColors.darkGray,
     backgroundColor: AppColors.darkGray,
@@ -89,10 +84,14 @@ class AppThemes {
     ),
     appBarTheme: const AppBarTheme(
       elevation: 0.0,
+      scrolledUnderElevation: 0.0,
       centerTitle: true,
       toolbarHeight: 68,
       color: AppColors.black,
-      systemOverlayStyle: SystemUiOverlayStyle.light,
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark,
+      ),
       iconTheme: IconThemeData(
         color: AppColors.white,
       ),

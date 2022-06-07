@@ -59,7 +59,7 @@ class DioManager {
     }).catchError((dynamic error) async {
       errorToast(
         code: error.response?.data?['status_code']?.toString() ?? '',
-        message: error.response?.data?['status_message']?.toString() ?? '',
+        message: '${error.response?.data?['status_message']?.toString() ?? ''} error',
       );
     });
   }
@@ -80,7 +80,7 @@ class DioManager {
     }).catchError((dynamic error) {
       errorToast(
         code: error.response?.data?['status_code']?.toString() ?? '',
-        message: error.response?.data?['status_message']?.toString() ?? '',
+        message: '${error.response?.data?['status_message']?.toString() ?? ''} error',
       );
     });
   }
@@ -101,7 +101,7 @@ class DioManager {
     }).catchError((dynamic error) {
       errorToast(
         code: error.response?.data?['status_code']?.toString() ?? '',
-        message: error.response?.data?['status_message']?.toString() ?? '',
+        message: '${error.response?.data?['status_message']?.toString() ?? ''} error',
       );
     });
   }
@@ -122,7 +122,7 @@ class DioManager {
     }).catchError((dynamic error) {
       errorToast(
         code: error.response?.data?['status_code']?.toString() ?? '',
-        message: error.response?.data?['status_message']?.toString() ?? '',
+        message: '${error.response?.data?['status_message']?.toString() ?? ''} error',
       );
     });
   }
