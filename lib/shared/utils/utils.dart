@@ -19,10 +19,10 @@ void errorToast({
 bool isMobile() {
   if (kIsWeb) {
     return false;
-  } else if (Platform.isWindows) {
-    return false;
-  } else {
+  } else if (Platform.isAndroid || Platform.isIOS) {
     return true;
+  } else {
+    return false;
   }
 }
 

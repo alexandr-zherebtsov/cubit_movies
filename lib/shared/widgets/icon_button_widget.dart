@@ -34,13 +34,13 @@ class IconButtonWidget extends StatelessWidget {
         highlightElevation: 0.0,
         padding: EdgeInsets.zero,
         color: Theme.of(context).backgroundColor,
+        shape: const CircleBorder(),
+        onPressed: onPressed,
         child: Icon(
           icon,
           size: iconSize,
           color: color,
         ),
-        shape: const CircleBorder(),
-        onPressed: onPressed,
       ),
     );
   }

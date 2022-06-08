@@ -37,20 +37,15 @@ Network
 - [dio](https://github.com/flutterchina/dio)
 - [pretty_dio_logger](https://github.com/Milad-Akarie/pretty_dio_logger)
 
-Location
-- [geolocator](https://github.com/baseflow/flutter-geolocator/tree/main/geolocator)
-- [geocoding](https://github.com/baseflow/flutter-geocoding)
-
 UI
-- [fluttertoast](https://github.com/PonnamKarthik/FlutterToast)
 - [decorated_icon](https://github.com/benPesso/flutter_decorated_icon)
+- [overlay_support](https://github.com/boyan01/overlay_support)
 - [cupertino_icons](https://github.com/flutter/packages/tree/master/third_party/packages/cupertino_icons)
 - [flutter_rating_bar](https://github.com/sarbagyastha/flutter_rating_bar)
 
 Utils
 - [url_strategy](https://github.com/simpleclub/url_strategy)
 - [connectivity_plus](https://github.com/fluttercommunity/plus_plugins/tree/main/packages/connectivity_plus)
-- [permission_handler](https://github.com/baseflow/flutter-permission-handler)
 
 Dev Dependencies
 - [flutter_lints](https://github.com/flutter/packages/tree/main/packages/flutter_lints)

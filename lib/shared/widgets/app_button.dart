@@ -34,6 +34,7 @@ class AppButton extends StatelessWidget {
                 ),
               ),
             ),
+            onPressed: onTap,
             child: Text(
               title,
               textAlign: TextAlign.center,
@@ -43,7 +44,6 @@ class AppButton extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            onPressed: onTap,
           ),
         ),
       ),

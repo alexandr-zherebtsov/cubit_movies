@@ -20,15 +20,15 @@ class MovieCubit extends Cubit<MovieState> {
       emit(MovieErrorState());
     } else {
       emit(MovieLoadingState());
-      final MovieResponse? _loadedMovie = await moviesService.getMovie(
+      final MovieResponse? loadedMovie = await moviesService.getMovie(
         MovieRequest(movieId: movieId),
       );
-      if (_loadedMovie == null) {
+      if (loadedMovie == null) {
         emit(MovieErrorState());
       } else {
         emit(
           MovieLoadedState(
-            movie: _loadedMovie,
+            movie: loadedMovie,
           ),
         );
       }

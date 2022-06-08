@@ -31,6 +31,8 @@
 .pub-cache/
 .pub/
 /build/
+windows/out
+windows/.vs
 
 # Web related
 lib/generated_plugin_registrant.dart

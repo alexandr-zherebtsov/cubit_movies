@@ -17,6 +17,7 @@ Widget buildMovieItem({
         maxWidth: 280,
       ),
       child: InkWell(
+        onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SizedBox(
@@ -56,7 +57,6 @@ Widget buildMovieItem({
             ),
           ),
         ),
-        onTap: onTap,
       ),
     ),
   );

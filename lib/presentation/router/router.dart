@@ -13,7 +13,7 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.splash,
         builder: (BuildContext context, GoRouterState state) {
-          return SplashScreen();
+          return const SplashScreen();
         },
       ),
       GoRoute(

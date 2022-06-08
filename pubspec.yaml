@@ -30,10 +30,6 @@ dependencies:
   dio: ^4.0.4
   pretty_dio_logger: ^1.1.1
 
-  # location
-  geocoding: ^2.0.4
-  geolocator: ^8.2.1
-
   # ui
   decorated_icon: ^1.2.1
   overlay_support: ^2.0.1
@@ -43,7 +39,6 @@ dependencies:
   # utils
   url_strategy: ^0.2.0
   connectivity_plus: ^2.3.2
-  permission_handler: ^9.2.0
 
 dev_dependencies:
   flutter_test:

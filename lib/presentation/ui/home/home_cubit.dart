@@ -67,11 +67,11 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> getStartMovies() async {
-    final List<MoviesResponse> _loadedMovies = await getMovies(
+    final List<MoviesResponse> loadedMovies = await getMovies(
       MoviesRequest(page: page),
     );
-    stopPagination = _loadedMovies.isEmpty;
-    movies.addAll(_loadedMovies);
+    stopPagination = loadedMovies.isEmpty;
+    movies.addAll(loadedMovies);
   }
 
   void getAllMovies([type = HomeEnums.main]) async {
@@ -89,11 +89,11 @@ class HomeCubit extends Cubit<HomeState> {
       );
       setToCircularIndicator(moviesSC);
     }
-    final List<MoviesResponse> _loadedMovies = await getMovies(
+    final List<MoviesResponse> loadedMovies = await getMovies(
       MoviesRequest(page: page),
     );
-    stopPagination = _loadedMovies.isEmpty;
-    movies.addAll(_loadedMovies);
+    stopPagination = loadedMovies.isEmpty;
+    movies.addAll(loadedMovies);
     emit(
       HomeLoadedState(
         movies: movies,
@@ -147,14 +147,14 @@ class HomeCubit extends Cubit<HomeState> {
       );
       setToCircularIndicator(moviesSC);
     }
-    final List<MoviesResponse> _loadedMovies = await moviesService.getMoviesByQuery(
+    final List<MoviesResponse> loadedMovies = await moviesService.getMoviesByQuery(
       MoviesQueryRequest(
         page: page,
         query: query,
       ),
     );
-    stopPagination = _loadedMovies.isEmpty;
-    movies.addAll(_loadedMovies);
+    stopPagination = loadedMovies.isEmpty;
+    movies.addAll(loadedMovies);
     emit(
       HomeLoadedState(
         movies: movies,
@@ -183,11 +183,11 @@ class HomeCubit extends Cubit<HomeState> {
         ),
       );
     }
-    final List<MoviesResponse> _loadedMovies = await moviesService.getMoviesByFilter(
+    final List<MoviesResponse> loadedMovies = await moviesService.getMoviesByFilter(
       filterRequest!,
     );
-    stopPagination = _loadedMovies.isEmpty;
-    movies.addAll(_loadedMovies);
+    stopPagination = loadedMovies.isEmpty;
+    movies.addAll(loadedMovies);
     emit(
       HomeLoadedState(
         movies: movies,
