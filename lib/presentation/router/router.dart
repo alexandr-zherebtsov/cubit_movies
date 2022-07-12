@@ -33,7 +33,7 @@ class AppRouter {
       GoRoute(
         path: AppRoutes.settings,
         builder: (BuildContext context, GoRouterState state) {
-          return const SettingsScreen();
+          return SettingsScreen();
         },
       ),
     ],

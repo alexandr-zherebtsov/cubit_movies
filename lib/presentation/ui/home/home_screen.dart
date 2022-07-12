@@ -1,6 +1,5 @@
-import 'package:cubit_movies/data/remote/movies_service.dart';
 import 'package:cubit_movies/domain/models/filter_model.dart';
-import 'package:cubit_movies/presentation/di/locator.dart';
+import 'package:cubit_movies/presentation/di/di.dart';
 import 'package:cubit_movies/presentation/router/arguments.dart';
 import 'package:cubit_movies/presentation/router/routes.dart';
 import 'package:cubit_movies/presentation/ui/filter/filter_dialog.dart';
@@ -34,26 +33,15 @@ class _HomeScreenState extends State<HomeScreen> {
   late final FocusNode _searchFN;
   late final TextEditingController _searchTC;
   late final GlobalKey<ScaffoldState> _scaffoldKey;
-  final MoviesService _moviesService = locator<MoviesService>();
 
   @override
   void initState() {
+    _homeCubit = getIt.get<HomeCubit>();
     _searchFN = FocusNode();
     _searchTC = TextEditingController();
     _scaffoldKey = GlobalKey<ScaffoldState>();
-    _homeCubit = HomeCubit(_moviesService);
     super.initState();
   }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _homeCubit.close();
-    _searchTC.dispose();
-    _searchFN.dispose();
-  }
-
-  void unFocus() => _searchFN.unfocus();
 
   @override
   Widget build(BuildContext context) {
@@ -148,18 +136,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                   color: _homeCubit.type == HomeEnums.filter ? Theme.of(context).primaryColor : null,
                                   buttonSize: isMobile() ? 50 : 57,
                                   onPressed: () async {
-                                    final FilterModel? res = MediaQuery.of(context).size.width >= 1200 ? await showFilterAlertDialog(
-                                      context: _scaffoldKey.currentContext ?? context,
-                                      filter: _homeCubit.filterModel,
-                                    ) : await showFilterBottomSheet(
-                                      context: _scaffoldKey.currentContext ?? context,
-                                      filter: _homeCubit.filterModel,
-                                    );
-                                    if (res != null) {
-                                      _searchTC.clear();
-                                      _homeCubit.page = 1;
-                                      _homeCubit.filterModel = res;
-                                      _homeCubit.applyFilter();
+                                    if (state is HomeLoadedState) {
+                                      final FilterModel? res = MediaQuery.of(context).size.width >= 1200 ? await showFilterAlertDialog(
+                                        context: _scaffoldKey.currentContext ?? context,
+                                        filter: state.filterModel,
+                                      ) : await showFilterBottomSheet(
+                                        context: _scaffoldKey.currentContext ?? context,
+                                        filter: state.filterModel,
+                                      );
+                                      if (res != null) {
+                                        _searchTC.clear();
+                                        _homeCubit.applyFilter(
+                                          res,
+                                          apply: true,
+                                        );
+                                      }
                                     }
                                   },
                                 ),
@@ -199,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             } else {
                               return const Offstage();
                             }
-                          }
+                          },
                         ),
                       ),
                     ),
@@ -251,4 +242,6 @@ class _HomeScreenState extends State<HomeScreen> {
       }).toList(),
     );
   }
+
+  void unFocus() => _searchFN.unfocus();
 }

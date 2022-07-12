@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:cubit_movies/data/remote/movies_service.dart';
+import 'package:cubit_movies/data/remote/repositories/movies_repository.dart';
 import 'package:cubit_movies/domain/models/filter_model.dart';
 import 'package:cubit_movies/domain/request/filter_request.dart';
 import 'package:cubit_movies/domain/request/movies_query_request.dart';
@@ -15,10 +15,10 @@ import 'package:cubit_movies/shared/core/base/pagination_scroll_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  final MoviesService moviesService;
+  final MoviesRepository moviesRepository;
 
-  HomeCubit(this.moviesService) : super(HomeEmptyState()) {
-    onInit();
+  HomeCubit(this.moviesRepository) : super(HomeEmptyState()) {
+    init();
   }
 
   late PaginationScrollController moviesSC;
@@ -28,7 +28,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   final List<MoviesResponse> movies = [];
 
-  void onInit() async {
+  void init() async {
     emit(HomeLoadingState());
     moviesSC = PaginationScrollController(initMoviesSC);
     await getStartMovies();
@@ -36,6 +36,7 @@ class HomeCubit extends Cubit<HomeState> {
       HomeLoadedState(
         movies: movies,
         moviesSC: moviesSC,
+        filterModel: filterModel,
         paginationLoader: false,
       ),
     );
@@ -58,7 +59,7 @@ class HomeCubit extends Cubit<HomeState> {
         break;
       case HomeEnums.filter:
         filterRequest!.page = page;
-        applyFilter();
+        applyFilter(filterModel);
         break;
       default:
         log('unsupported');
@@ -84,6 +85,7 @@ class HomeCubit extends Cubit<HomeState> {
         HomeLoadedState(
           movies: movies,
           moviesSC: moviesSC,
+          filterModel: filterModel,
           paginationLoader: true,
         ),
       );
@@ -98,13 +100,14 @@ class HomeCubit extends Cubit<HomeState> {
       HomeLoadedState(
         movies: movies,
         moviesSC: moviesSC,
+        filterModel: filterModel,
         paginationLoader: false,
       ),
     );
   }
 
   Future<List<MoviesResponse>> getMovies(MoviesRequest data) async {
-    return await moviesService.getMovies(data);
+    return await moviesRepository.getMovies(data);
   }
 
   Timer? _searchDebounce;
@@ -142,12 +145,13 @@ class HomeCubit extends Cubit<HomeState> {
         HomeLoadedState(
           movies: movies,
           moviesSC: moviesSC,
+          filterModel: filterModel,
           paginationLoader: true,
         ),
       );
       setToCircularIndicator(moviesSC);
     }
-    final List<MoviesResponse> loadedMovies = await moviesService.getMoviesByQuery(
+    final List<MoviesResponse> loadedMovies = await moviesRepository.getMoviesByQuery(
       MoviesQueryRequest(
         page: page,
         query: query,
@@ -159,6 +163,7 @@ class HomeCubit extends Cubit<HomeState> {
       HomeLoadedState(
         movies: movies,
         moviesSC: moviesSC,
+        filterModel: filterModel,
         paginationLoader: false,
       ),
     );
@@ -167,7 +172,14 @@ class HomeCubit extends Cubit<HomeState> {
   FilterModel? filterModel;
   FilterRequest? filterRequest;
 
-  void applyFilter() async {
+  void applyFilter(
+    final FilterModel? res, {
+    final bool apply = false,
+  }) async {
+    if (apply) {
+      page = 1;
+      filterModel = res;
+    }
     if (page == 1) {
       emit(HomeMoviesLoadingState());
       clearMovies();
@@ -179,11 +191,12 @@ class HomeCubit extends Cubit<HomeState> {
         HomeLoadedState(
           movies: movies,
           moviesSC: moviesSC,
+          filterModel: filterModel,
           paginationLoader: true,
         ),
       );
     }
-    final List<MoviesResponse> loadedMovies = await moviesService.getMoviesByFilter(
+    final List<MoviesResponse> loadedMovies = await moviesRepository.getMoviesByFilter(
       filterRequest!,
     );
     stopPagination = loadedMovies.isEmpty;
@@ -192,6 +205,7 @@ class HomeCubit extends Cubit<HomeState> {
       HomeLoadedState(
         movies: movies,
         moviesSC: moviesSC,
+        filterModel: filterModel,
         paginationLoader: false,
       ),
     );
@@ -223,6 +237,14 @@ class HomeCubit extends Cubit<HomeState> {
     type = HomeEnums.main;
     clearMovies();
     getAllMovies(HomeEnums.search);
+    emit(
+      HomeLoadedState(
+        movies: movies,
+        moviesSC: moviesSC,
+        filterModel: filterModel,
+        paginationLoader: false,
+      ),
+    );
   }
 
   void clearMovies() {

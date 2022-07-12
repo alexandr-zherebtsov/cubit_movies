@@ -9,10 +9,12 @@ class FilterErrorState extends FilterState {}
 class FilterLoadingState extends FilterState {}
 
 class FilterLoadedState extends FilterState {
+  String year;
   List<GenreResponse> genres;
   List<GenreResponse> selectedGenres;
 
   FilterLoadedState({
+    required this.year,
     required this.genres,
     required this.selectedGenres,
   });

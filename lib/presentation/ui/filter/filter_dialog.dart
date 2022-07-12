@@ -1,7 +1,6 @@
-import 'package:cubit_movies/data/remote/filter_service.dart';
 import 'package:cubit_movies/domain/models/filter_model.dart';
 import 'package:cubit_movies/domain/responses/genre_response.dart';
-import 'package:cubit_movies/presentation/di/locator.dart';
+import 'package:cubit_movies/presentation/di/di.dart';
 import 'package:cubit_movies/presentation/ui/filter/filter_cubit.dart';
 import 'package:cubit_movies/presentation/ui/filter/filter_state.dart';
 import 'package:cubit_movies/presentation/ui/filter/widgets/filter_title_item.dart';
@@ -70,51 +69,23 @@ Future<FilterModel?> showFilterAlertDialog({
   return res;
 }
 
-class FilterScreen extends StatefulWidget {
+class FilterScreen extends StatelessWidget {
   final FilterModel? filter;
 
-  const FilterScreen({
+  FilterScreen({
     Key? key,
     required this.filter,
   }) : super(key: key);
 
-  @override
-  State<FilterScreen> createState() => _FilterScreenState();
-}
-
-class _FilterScreenState extends State<FilterScreen> {
-  late final FilterCubit _filterCubit;
-  late final FocusNode _yearFN;
-  late final TextEditingController _yearTC;
-  late final GlobalKey<ScaffoldState> _scaffoldKey;
-  final FilterService _filterService = locator<FilterService>();
-
-  @override
-  void initState() {
-    _yearFN = FocusNode();
-    _yearTC = TextEditingController();
-    _scaffoldKey = GlobalKey<ScaffoldState>();
-    _filterCubit = FilterCubit(
-      filterModel: widget.filter,
-      filterService: _filterService,
-    );
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _yearTC.dispose();
-    _yearFN.dispose();
-    _filterCubit.close();
-  }
-
-  void unFocus() => _yearFN.unfocus();
+  final FilterCubit _filterCubit = getIt.get<FilterCubit>();
+  final FocusNode _yearFN = FocusNode();
+  final TextEditingController _yearTC = TextEditingController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FilterCubit, FilterState>(
-      bloc: _filterCubit,
+      bloc: _filterCubit..init(filter),
       builder: (BuildContext context, FilterState state) {
         return GestureDetector(
           onTap: unFocus,
@@ -156,7 +127,7 @@ class _FilterScreenState extends State<FilterScreen> {
                   } else if (state is FilterErrorState) {
                     return const AppErrorWidget();
                   } else if (state is FilterLoadedState) {
-                    _yearTC.text = _filterCubit.yearText;
+                    _yearTC.text = state.year;
                     return SingleChildScrollView(
                       child: Padding(
                         padding: const EdgeInsets.only(
@@ -221,15 +192,18 @@ class _FilterScreenState extends State<FilterScreen> {
               ),
             ),
             floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-            floatingActionButton: _filterCubit.selectedGenres.isNotEmpty ? AppButton(
-              title: StringsKeys.apply.tr().toUpperCase(),
-              onTap: () {
-                final bool res = _filterCubit.applyFilter(_yearTC.text);
-                if (res) {
-                  Navigator.pop(context, _filterCubit.filter);
-                }
-              },
-            ) : null,
+            floatingActionButton: Offstage(
+              offstage: _filterCubit.selectedGenres.isEmpty,
+              child: AppButton(
+                title: StringsKeys.apply.tr().toUpperCase(),
+                onTap: () {
+                  final bool res = _filterCubit.applyFilter(_yearTC.text);
+                  if (res) {
+                    Navigator.pop(context, _filterCubit.filter);
+                  }
+                },
+              ),
+            ),
           ),
         );
       },
@@ -243,4 +217,6 @@ class _FilterScreenState extends State<FilterScreen> {
     Iterable<GenreResponse> res = selected.where((e) => e.id == genre.id);
     return res.isNotEmpty;
   }
+
+  void unFocus() => _yearFN.unfocus();
 }

@@ -1,9 +1,7 @@
-import 'dart:io';
 import 'dart:ui';
 
 import 'package:cubit_movies/shared/constants/app_values.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 void errorToast({
@@ -16,24 +14,12 @@ void errorToast({
   );
 }
 
-bool isMobile() {
-  if (kIsWeb) {
-    return false;
-  } else if (Platform.isAndroid || Platform.isIOS) {
-    return true;
-  } else {
-    return false;
-  }
+bool isApple() {
+  return defaultTargetPlatform == TargetPlatform.macOS || defaultTargetPlatform == TargetPlatform.iOS;
 }
 
-IconData getBackIcon() {
-  if (kIsWeb) {
-    return Icons.arrow_back;
-  } else if (Platform.isIOS || Platform.isMacOS) {
-    return Icons.arrow_back_ios;
-  } else {
-    return Icons.arrow_back;
-  }
+bool isMobile() {
+  return defaultTargetPlatform == TargetPlatform.android || defaultTargetPlatform == TargetPlatform.iOS;
 }
 
 double doubleParser(dynamic data) {

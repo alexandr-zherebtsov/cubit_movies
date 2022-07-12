@@ -1,5 +1,5 @@
 import 'package:cubit_movies/data/local/preferences.dart';
-import 'package:cubit_movies/presentation/di/locator.dart';
+import 'package:cubit_movies/presentation/di/di.dart';
 import 'package:cubit_movies/presentation/router/router.dart';
 import 'package:cubit_movies/presentation/router/routes.dart';
 import 'package:cubit_movies/shared/constants/app_values.dart';
@@ -15,9 +15,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  setupLocator();
+  setup();
   await Hive.initFlutter();
-  await locator<Preferences>().openBox();
+  await getIt<Preferences>().openBox();
   if (kIsWeb) {
     setPathUrlStrategy();
     SystemNavigator.routeInformationUpdated(

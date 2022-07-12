@@ -13,8 +13,8 @@ Movies Application
 
 ### Libraries & Tools
 
-- [Flutter 3.0.1 • channel stable](https://flutter.dev)
-- [Dart 2.17.1](https://dart.dev)
+- [Flutter 3.0.4 • channel stable](https://flutter.dev)
+- [Dart 2.17.5](https://dart.dev)
 - [DevTools 2.12.2](https://docs.flutter.dev/development/tools/devtools/overview)
 
 State Manager
@@ -84,5 +84,5 @@ Now, lets dive into the lib folder which has the main code for the application.
 2 - domain - Contains abstraction and business logic of project, includes models, responses, request, etc.
 3 - presentation - Contains all the ui of project, contains sub directory for each screen.
 4 - shared - Contains the utilities/common functions, styles of application.
-5 - main.dart - This is the starting point of the application. All the application level configurations are defined in this file i.e, theme, routes, title, orientation etc.
+5 - main.dart - This is the starting point of the application. All the application level configurations are defined in this file i.e, theme, routes, title etc.
 ```

@@ -1,5 +1,4 @@
-import 'package:cubit_movies/data/local/preferences.dart';
-import 'package:cubit_movies/presentation/di/locator.dart';
+import 'package:cubit_movies/presentation/di/di.dart';
 import 'package:cubit_movies/presentation/ui/settings/settings_cubit.dart';
 import 'package:cubit_movies/presentation/ui/settings/settings_state.dart';
 import 'package:cubit_movies/shared/widgets/app_progress.dart';
@@ -9,31 +8,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SettingsScreen extends StatefulWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+class SettingsScreen extends StatelessWidget {
+  SettingsScreen({Key? key}) : super(key: key);
 
-  @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
-}
-
-class _SettingsScreenState extends State<SettingsScreen> {
-  late final SettingsCubit _settingsCubit;
-
-  final Preferences _pref = locator<Preferences>();
-
-  @override
-  void initState() {
-    _settingsCubit = SettingsCubit(
-      pref: _pref,
-    );
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _settingsCubit.close();
-    super.dispose();
-  }
+  final SettingsCubit _settingsCubit = getIt.get<SettingsCubit>();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +19,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       bloc: _settingsCubit,
       builder: (BuildContext context, SettingsState state) {
         if (state is SettingsLoadingState) {
-          return buildProgressArea(context);
+          return const ProgressAreaWidget();
         } else if (state is SettingsErrorState) {
           return const AppErrorWidget(
             showBack: true,

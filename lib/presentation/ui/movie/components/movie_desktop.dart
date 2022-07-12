@@ -1,3 +1,4 @@
+import 'package:cubit_movies/presentation/di/di.dart';
 import 'package:cubit_movies/presentation/router/arguments.dart';
 import 'package:cubit_movies/presentation/ui/movie/movie_cubit.dart';
 import 'package:cubit_movies/presentation/ui/movie/movie_state.dart';
@@ -14,13 +15,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MovieDesktop extends StatelessWidget {
   final MovieArguments arguments;
-  final MovieCubit movieCubit;
 
-  const MovieDesktop({
+  MovieDesktop({
     Key? key,
     required this.arguments,
-    required this.movieCubit,
   }) : super(key: key);
+
+  final MovieCubit _movieCubit = getIt.get<MovieCubit>();
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +79,7 @@ class MovieDesktop extends StatelessWidget {
                             voteAverage: arguments.voteAverage,
                           ),
                           BlocBuilder<MovieCubit, MovieState>(
-                            bloc: movieCubit,
+                            bloc: _movieCubit..getMovie(arguments.movieId),
                             builder: (BuildContext context, MovieState state) {
                               if (state is MovieLoadingState) {
                                 return const Padding(
