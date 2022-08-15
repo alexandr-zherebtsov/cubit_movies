@@ -6,10 +6,10 @@ class PaginationScrollController extends ScrollController {
     bool debounce = false;
     addListener(() async {
       if (!debounce) {
-        if (position.maxScrollExtent == position.pixels) {
+        if (position.maxScrollExtent <= position.pixels) {
           debounce = true;
           pagination();
-          await futureDelayed(milliseconds: 600);
+          await futureDelayed(milliseconds: 500);
           debounce = false;
         }
       }

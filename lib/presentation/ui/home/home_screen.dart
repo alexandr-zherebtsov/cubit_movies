@@ -1,4 +1,5 @@
 import 'package:cubit_movies/domain/models/filter_model.dart';
+import 'package:cubit_movies/domain/responses/movies_response.dart';
 import 'package:cubit_movies/presentation/di/di.dart';
 import 'package:cubit_movies/presentation/router/arguments.dart';
 import 'package:cubit_movies/presentation/router/routes.dart';
@@ -222,9 +223,8 @@ class _HomeScreenState extends State<HomeScreen> {
         vertical: 26.0,
         horizontal: 8.0,
       ),
-      children: state.movies.map((movie) {
-        return buildMovieItem(
-          context: context,
+      children: state.movies.map((MoviesResponse movie) {
+        return MovieItem(
           movie: movie,
           onTap: () {
             unFocus();

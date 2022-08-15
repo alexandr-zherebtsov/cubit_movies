@@ -5,7 +5,7 @@ import 'package:cubit_movies/shared/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class PaginationScrollView extends StatelessWidget {
-  final ScrollController scrollController;
+  final PaginationScrollController scrollController;
   final ScrollViewEnums type;
   final bool paginationLoader;
   final EdgeInsetsGeometry padding;
@@ -23,21 +23,59 @@ class PaginationScrollView extends StatelessWidget {
   Widget _buildByType(BuildContext context) {
     switch (type) {
       case ScrollViewEnums.wrap:
-        return Center(
-          child: Wrap(
-            children: children..add(
-              _loader(),
-            ),
-          ),
+        return LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            if (constraints.maxWidth > 1000) {
+              return _wrapView(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4,
+                  childAspectRatio: 0.55,
+                ),
+              );
+            } else if (constraints.maxWidth > 600) {
+              return _wrapView(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  childAspectRatio: 0.55,
+                ),
+              );
+            } else {
+              return _wrapView(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.55,
+                ),
+              );
+            }
+          },
         );
       case ScrollViewEnums.column:
       default:
-        return Column(
-          children: children..add(
-            _loader(),
-          ),
+        return ListView.builder(
+          padding: padding,
+          controller: scrollController,
+          physics: const AlwaysScrollableScrollPhysics(),
+          itemCount: children.length,
+          itemBuilder: (_, int i) {
+            return children[i];
+          },
         );
     }
+  }
+
+  Widget _wrapView({
+    required SliverGridDelegate gridDelegate,
+  }) {
+    return GridView.builder(
+      padding: padding,
+      controller: scrollController,
+      gridDelegate: gridDelegate,
+      physics: const AlwaysScrollableScrollPhysics(),
+      itemCount: children.length,
+      itemBuilder: (_, int i) {
+        return children[i];
+      },
+    );
   }
 
   Widget _loader() {
@@ -52,13 +90,14 @@ class PaginationScrollView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      controller: scrollController,
-      physics: const AlwaysScrollableScrollPhysics(),
-      child: Padding(
-        padding: padding,
-        child: _buildByType(context),
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Expanded(
+          child: _buildByType(context),
+        ),
+        _loader(),
+      ],
     );
   }
 }
